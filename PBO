@@ -128,3 +128,45 @@ class Fruit {
     }
 
 }
+
+class Entity{
+  constructor(x,y) {
+        this.x = x;
+        this.y = y;
+        this.x = floor(width / 2 );
+        this.y = floor(height / 2);
+        this.dir = 'up';
+        this.score = 0;
+        this.tails = [];this.x = floor(random(0, width) / gap) * gap;
+        this.y = floor(random(0, height) / gap) * gap;
+       }
+   eat() {
+
+        this.x = floor(random(0, width) / gap) * gap;
+        this.y = floor(random(0, height) / gap) * gap;
+
+        if (this.x == snake.x || this.y == snake.y) {
+            this.eat();
+        }
+    }
+  tail_collide() {
+        for (let i = 0; i < this.tails.length; i++) {
+            if (this.x == this.tails[i].x && this.y == this.tails[i].y) {
+                return true;
+            }
+        }
+  }
+    collision(obj) {
+        if (this.x == obj.x && this.y == obj.y) {
+            return true;
+        }
+        if (this.x >= width || this.x < 0 || this.y >= height || this.y < 0) {
+            return false;
+        }
+        if (this.x >= poison.x &&this.x <= poison.x && this.y >= poison.y && this.y <= poison.y){
+            return false;
+          
+        }
+
+    }
+}
