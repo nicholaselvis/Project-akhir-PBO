@@ -1,2 +1,99 @@
+let apple;
+let poison;
+let gap = 20; 
+let snake;
+let pLoc = {};
+let highest = 0;
+let lvl = 1;
+let test = 0;
+let skor = [];
+let i = 0;
+let score = [];
+let level = 1;
 
-wangsa
+function setup() {
+    createCanvas(500, 500);
+    apple = new Fruit();
+    poison = new Monster();
+    snake = new Hero();
+    latar = new Map();
+    textSize(14);
+    textStyle(BOLD);
+    lvl = new Level();
+
+    for (let i = 0; i < 2; i++) {
+        snake.tails.push(new Tail(snake.x, snake.y + (15 * i)));
+    }
+}
+
+function draw() {
+
+    latar.show();
+
+    noFill();
+    noStroke();
+
+    
+    for (let i = snake.tails.length - 1; i >= 0; i--) {
+        if (i == 0) {
+            snake.tails[i].x = snake.x;
+            snake.tails[i].y = snake.y;
+        } else {
+            snake.tails[i].x = snake.tails[i - 1].x;
+            snake.tails[i].y = snake.tails[i - 1].y;
+        }
+        snake.tails[i].show();
+    }
+
+
+    pLoc.x = snake.x;
+    pLoc.y = snake.y;
+    snake.update();
+    lvl.currentLevel()
+    lvl.latestLevel()
+    lvl.maxLevel()
+
+    if (snake.collision(apple)) {
+        snake.score++;
+        apple.eat();
+        poison.eat();
+        snake.tails.push(new Tail(pLoc.x, pLoc.y));
+    }
+    if (snake.score > highest) {
+        highest = snake.score;
+    }
+    
+    if (snake.collision(apple) == false || snake.tail_collide() == true) {
+        snake.redefine();
+        apple.eat();
+        poison.eat();
+    }
+  
+    
+
+    apple.show();
+    poison.show();
+
+    fill(43, 51, 25);
+    text("Score : " + int(snake.score), 70, height - 30);
+    text("Highest : " + int(highest), 80, height - 10);
+    text(`LEVEL: ${level} `, 70, 25);
+    snake.show();
+    noFill();
+    strokeWeight(4);
+    stroke(43, 51, 25);
+    rect(1, 1, width - 2, height - 2);
+
+}
+
+function keyPressed() {
+    if (keyCode == LEFT_ARROW && snake.dir != 'right') {
+        snake.dir = 'left';
+    } else if (keyCode == RIGHT_ARROW && snake.dir != 'left') {
+        snake.dir = 'right';
+    } else if (keyCode == UP_ARROW && snake.dir != 'down') {
+        snake.dir = 'up';
+    } else if (keyCode == DOWN_ARROW && snake.dir != 'up') {
+        snake.dir = 'down';
+    }
+}
