@@ -170,3 +170,55 @@ class Entity{
 
     }
 }
+
+class Hero extends Entity {
+ 
+    update() {
+        if (this.dir == 'left') {
+            this.x -= gap;
+        } else if (this.dir == 'right') {
+            this.x += gap;
+        } else if (this.dir == 'up') {
+            this.y -= gap;
+        } else if (this.dir == 'down') {
+            this.y += gap;
+        }
+    }
+
+    redefine() {
+        this.x = floor(width / (2 * gap)) * gap;
+        this.y = floor(height / (2 * gap)) * gap;
+        this.dir = 'up';
+        this.score = 0;
+        this.tails = [];
+
+        for (let i = 0; i < 2; i++) {
+            snake.tails.push(new Tail(snake.x, snake.y + (15 * i)));
+        }
+
+    }
+   
+
+    show() {
+        fill("BLACK");
+        rect(this.x, this.y, gap, gap);
+    }
+
+}
+class Monster extends Entity {
+
+    show() {
+        fill("YELLOW");
+        square(this.x, this.y, gap, gap);
+    }
+
+}
+
+class Tail extends Entity {
+    show(){
+
+        fill("WHITE");
+        rect(this.x, this.y, gap, gap );
+
+    }
+}
