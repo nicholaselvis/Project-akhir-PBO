@@ -222,3 +222,41 @@ class Tail extends Entity {
 
     }
 }
+
+class Level{
+currentLevel(){
+    if(score<5){
+      textAlign(CENTER)
+      fill('#d9c3f7');
+      textFont('Courier')
+      textSize(20); 
+      frameRate(10)
+    }
+  }
+  
+  latestLevel(){
+    textAlign(CENTER)
+    textFont('Courier')
+    textSize(20); 
+    if(score>=5 && score<15){
+      fill('#00FF00');
+      frameRate(12)
+    }else if(score>=15 && score<21){
+      fill('#00FFFF');
+      frameRate(16)
+    }else if(score>=21 && score<26){
+      fill('#ff0000');
+      frameRate(20)
+    }
+  }
+ 
+  maxLevel(){
+    if(score>=26){
+      textAlign(CENTER)
+      fill('#000000');
+      textFont('Courier')
+      textSize(20); 
+      frameRate(30)
+    }
+  }
+}
